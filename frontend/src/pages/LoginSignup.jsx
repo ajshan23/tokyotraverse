@@ -21,7 +21,7 @@ export const LoginSignup = () => {
     }
     let responseData;
     console.log("clicked login",{password:password,email:email})
-    await fetch("/api/v1/users/login",{
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/login",{
       method:"POST",
       headers:{
         Accept:"application/form-data",

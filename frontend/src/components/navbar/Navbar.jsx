@@ -22,7 +22,7 @@ const Navbar = () => {
       return;
     }
 
-    await fetch("/api/v1/users/logout", {
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/logout", {
       method: "POST",
     })
       .then((res) => res.json())
@@ -37,7 +37,7 @@ const Navbar = () => {
     setUser(localStorage.getItem("auth-token"));
     if (user) {
       let aj=async() => {
-        await fetch("/api/v1/users/loadcart", {
+        await fetch("https://tokyo-traverse.onrender.com/api/v1/users/loadcart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

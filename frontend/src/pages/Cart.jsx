@@ -39,7 +39,7 @@ const handleProceed = () => {
       toast.error("All fields are required");
       return null;
     }
-    await fetch("/api/v1/users/finalsubmit",{
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/finalsubmit",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -60,7 +60,7 @@ const handleProceed = () => {
     let owner=item.owner
     let createdAt=item.createdAt
     // console.log(productId,owner,createdAt)
-    await fetch("/api/v1/users/removecart",{
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/removecart",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -68,7 +68,7 @@ const handleProceed = () => {
       body:JSON.stringify({productId:productId,owner:owner,createdAt:createdAt})
     })
     .catch((err)=>console.error(err))
-    await fetch("/api/v1/users/loadcart", {
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/loadcart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

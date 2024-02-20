@@ -44,7 +44,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
   const options={
     httpOnly:true,
-    secure:true
+    maxAge: 1000 * 60 * 60 *24 *7,
   }
   return res
     .status(201)
@@ -84,7 +84,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
   const options={
     httpOnly:true,
-    secure:true
+    maxAge: 1000 * 60 * 60 *24 *7,
   }
   return res.status(200)
   .cookie("accessToken",accessToken,options)  

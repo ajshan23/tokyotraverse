@@ -16,14 +16,14 @@ const ProductInner = ({product}) => {
       navigate("/login")
       return
     }
-    await fetch("/api/v1/users/createcart",{
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/createcart",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
       },
       body:JSON.stringify({productId:product._id})
      }).catch((err)=>console.log(err))
-     await fetch("/api/v1/users/loadcart", {
+     await fetch("https://tokyo-traverse.onrender.com/api/v1/users/loadcart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

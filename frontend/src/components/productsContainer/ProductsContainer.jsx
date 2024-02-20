@@ -7,7 +7,7 @@ const ProductsContainer = (props) => {
 
   const dispatch = useDispatch();
   const getLatest = async () => {
-    await fetch("/api/v1/admin/getlatestproduct", {
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/admin/getlatestproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -18,7 +18,7 @@ const ProductsContainer = (props) => {
       .then((data) => setProducts(data.Latest));
   };
   const getFandom = async () => {
-    await fetch("/api/v1/users/getfandom", {
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/getfandom", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -29,7 +29,7 @@ const ProductsContainer = (props) => {
       .then((data) => setProducts(data.fandom));
   };
   const getFeatured = async () => {
-    await fetch("/api/v1/users/getfeatured", {
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/getfeatured", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -40,7 +40,7 @@ const ProductsContainer = (props) => {
       .then((data) => setProducts(data.featured));
   };
   const getRelated = async () => {
-    await fetch("/api/v1/users/relatedproducts", {
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/relatedproducts", {
       method: "POST",
       headers: {
         Accept: "application/json",
