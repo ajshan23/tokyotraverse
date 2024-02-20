@@ -9,99 +9,110 @@ export const LoginSignup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cpass, setCpass] = useState("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = () => {
     login ? handleLogin() : handleSignup();
   };
   const handleLogin = async () => {
-    
-    if([password,email].some((field)=>field.trim()==="")){
-      toast.error("All fields are required")
-      return null
+    if ([password, email].some((field) => field.trim() === "")) {
+      toast.error("All fields are required");
+      return null;
     }
     let responseData;
-    console.log("clicked login",{password:password,email:email})
-    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/login",{
-      method:"POST",
-      headers:{
-        Accept:"application/form-data",
-        "Content-Type":"application/json",
+    console.log("clicked login", { password: password, email: email });
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/form-data",
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({password:password,email:email})
-    }).then((res)=>res.json())
-    .then((data)=>responseData=data)
-    .catch((err)=>alert("Wrong email or password"))
+      
+      body: JSON.stringify({ password: password, email: email }),
+    })
+      .then((res) => res.json())
+      .then((data) => (responseData = data))
+      .catch((err) => alert("Wrong email or password"));
 
     if (responseData.success) {
       console.log(responseData);
-      localStorage.setItem('auth-token',responseData.data.accessToken)
+      localStorage.setItem("auth-token", responseData.data.accessToken);
 
-      window.location.replace('/')
-    }
-    else{
-      if (responseData.statusCode===400) {
-        toast.error("wrong email or password")
+      window.location.replace("/");
+    } else {
+      if (responseData.statusCode === 400) {
+        toast.error("wrong email or password");
       }
-      toast.error(responseData.error)
-      
+      toast.error(responseData.error);
     }
-    setPassword("")
-    setCpass("")
-    setEmail("")
-    setUsername("")
+    setPassword("");
+    setCpass("");
+    setEmail("");
+    setUsername("");
   };
   const handleSignup = async () => {
-    if([username,password,cpass,email].some((field)=>field.trim()==="")){
-      alert("All fields are required")
-      return null
+    if (
+      [username, password, cpass, email].some((field) => field.trim() === "")
+    ) {
+      alert("All fields are required");
+      return null;
     }
-    if (password!==cpass) {
-      alert("password and confirm password is not matching")
-      setPassword("")
-      setCpass("")
-      return null
+    if (password !== cpass) {
+      alert("password and confirm password is not matching");
+      setPassword("");
+      setCpass("");
+      return null;
     }
     let responseData;
-    console.log("clicked signup",{username:username,password:password,cpass:cpass,email:email})
-    await fetch("/api/v1/users/register",{
-      method:"POST",
-      headers:{
-        Accept:"application/form-data",
-        "Content-Type":"application/json",
+    console.log("clicked signup", {
+      username: username,
+      password: password,
+      cpass: cpass,
+      email: email,
+    });
+    await fetch("https://tokyo-traverse.onrender.com/api/v1/users/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/form-data",
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({username:username,password:password,email:email})
-    }).then((res)=>res.json())
-    .then((data)=>responseData=data)
-    .catch((err)=>{
-      if(err.statuscode===409){
-        alert("username or password already exists")
-      }
-      alert("username or password already exists")
-      console.log(err);
+      withCredntials: true,
+      credentials: "include",
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        email: email,
+      }),
     })
+      .then((res) => res.json())
+      .then((data) => (responseData = data))
+      .catch((err) => {
+        if (err.statuscode === 409) {
+          alert("username or password already exists");
+        }
+        alert("username or password already exists");
+        console.log(err);
+      });
 
     if (responseData.success) {
       console.log(responseData);
-      localStorage.setItem('auth-token',responseData.data.accessToken)
+      localStorage.setItem("auth-token", responseData.data.accessToken);
 
-      window.location.replace('/')
+      window.location.replace("/");
+    } else {
+      alert(responseData.error);
     }
-    else{
-      alert(responseData.error)
-    }
-    setPassword("")
-    setCpass("")
-    setEmail("")
-    setUsername("")
+    setPassword("");
+    setCpass("");
+    setEmail("");
+    setUsername("");
   };
   useEffect(() => {
-    
-  let check=localStorage.getItem('auth-token')
-   if(check){
-      navigate("/")
-   }
-  }, [])
-  
+    let check = localStorage.getItem("auth-token");
+    if (check) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <div
       className="w-screen h-screen flex justify-center items-center"
@@ -119,16 +130,20 @@ export const LoginSignup = () => {
           </div>
           <div className="h-[1px] w-full bg-[#F01F26]"></div>
           <div className="flex flex-col items-start justify-center pt-[6px]">
-            {!login? <><div className="text-sm text-gray-500 pt-[5px]">Username:</div>
-            <div className="w-[334px] h-[35px] border border-[#F01F26] mt-[2px]">
-              <input
-                type="text"
-                className="w-full h-full bg-transparent outline-none px-3"
-                placeholder="Enter Your wamil"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div></>:null}
+            {!login ? (
+              <>
+                <div className="text-sm text-gray-500 pt-[5px]">Username:</div>
+                <div className="w-[334px] h-[35px] border border-[#F01F26] mt-[2px]">
+                  <input
+                    type="text"
+                    className="w-full h-full bg-transparent outline-none px-3"
+                    placeholder="Enter Your wamil"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+              </>
+            ) : null}
             <div className="text-sm text-gray-500 pt-[5px]">E-mail:</div>
             <div className="w-[334px] h-[35px] border border-[#F01F26] mt-[2px]">
               <input
