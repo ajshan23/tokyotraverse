@@ -1,0 +1,15 @@
+.scroll-container::-webkit-scrollbar {
+    width: 5px;
+    height: auto;
+  }
+  
+  /* Track */
+  
+  
+  /* Handle */
+  .scroll-container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 40px;
+    background:#a09090f8; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  }

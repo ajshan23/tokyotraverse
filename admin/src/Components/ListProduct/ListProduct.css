@@ -1,0 +1,36 @@
+.listproduct{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 740px;
+    padding: 10px 50px;
+    margin: 30px;
+    border-radius: 6px;
+    background: white;
+}
+.format-main{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    padding: 20px 0px;
+    color: #454545;
+    font: 15px;
+    font-weight: 600;
+}
+.format{
+    align-items: center;
+    font-weight: 500;
+}
+
+.pro-icon{
+    height: 80px;
+}
+.remove-icon{
+    cursor: pointer;
+    margin: auto;
+}
+.allproducts{
+    overflow-y: scroll;
+}
