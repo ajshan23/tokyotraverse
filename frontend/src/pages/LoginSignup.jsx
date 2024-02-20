@@ -3,8 +3,10 @@ import bgimage from "../assets/login.png";
 import avatar from "../assets/login2.png";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import {ClipLoader} from "react-spinners"
 export const LoginSignup = () => {
   const [login, setLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,19 +21,23 @@ export const LoginSignup = () => {
       return null;
     }
     let responseData;
-    console.log("clicked login", { password: password, email: email });
+    setLoading(true);
     await fetch("/api/v1/users/login", {
       method: "POST",
       headers: {
         Accept: "application/form-data",
         "Content-Type": "application/json",
       },
-      
+
       body: JSON.stringify({ password: password, email: email }),
     })
       .then((res) => res.json())
       .then((data) => (responseData = data))
-      .catch((err) => alert("Wrong email or password"));
+      .catch((err) => {
+        alert("Wrong email or password");
+        setLoading(false);
+      });
+      setLoading(false)
 
     if (responseData.success) {
       console.log(responseData);
@@ -63,12 +69,7 @@ export const LoginSignup = () => {
       return null;
     }
     let responseData;
-    console.log("clicked signup", {
-      username: username,
-      password: password,
-      cpass: cpass,
-      email: email,
-    });
+    setLoading(true)
     await fetch("/api/v1/users/register", {
       method: "POST",
       headers: {
@@ -90,9 +91,9 @@ export const LoginSignup = () => {
           alert("username or password already exists");
         }
         alert("username or password already exists");
-        console.log(err);
+        setLoading(false)
       });
-
+      setLoading(false)
     if (responseData.success) {
       console.log(responseData);
       localStorage.setItem("auth-token", responseData.data.accessToken);
@@ -188,7 +189,14 @@ export const LoginSignup = () => {
           </div>
           <div className="w-[334px] h-[35px] text-white text-center bg-[#F01F26] font-bold font-lexend text-xl mt-4 mb-2">
             <button className="w-full h-full" onClick={handleSubmit}>
-              {!login ? "Sign Up" : "Login"}
+              
+              {loading ? (
+                <ClipLoader color="white"/>
+              ) : !login ? (
+                "Sign Up"
+              ) : (
+                "Login"
+              )}
             </button>
           </div>
           <div className="flex text-sm">
