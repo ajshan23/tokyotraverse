@@ -5,33 +5,54 @@ import { useDispatch } from "react-redux";
 const ProductsContainer = (props) => {
   const [products, setProducts] = useState();
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const getLatest = async () => {
-    await fetch("/api/v1/admin/getlatestproduct")
+    await fetch("/api/v1/admin/getlatestproduct", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => setProducts(data.Latest));
   };
   const getFandom = async () => {
-    await fetch("/api/v1/users/getfandom")
+    await fetch("/api/v1/users/getfandom", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => setProducts(data.fandom));
   };
   const getFeatured = async () => {
-    await fetch("/api/v1/users/getfeatured")
+    await fetch("/api/v1/users/getfeatured", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => setProducts(data.featured));
   };
   const getRelated = async () => {
-    await fetch("/api/v1/users/relatedproducts",{
-      method:"POST",
-      headers:{
-        Accept:'application/json',
-        'Content-Type':'application/json',
+    await fetch("/api/v1/users/relatedproducts", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({category:props.category,mainproductid:props.id})
+      body: JSON.stringify({
+        category: props.category,
+        mainproductid: props.id,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => setProducts(data.products) );
+      .then((data) => setProducts(data.products));
   };
   useEffect(() => {
     if (props.type === "latest") {
@@ -40,11 +61,11 @@ const ProductsContainer = (props) => {
     if (props.type === "related") {
       getRelated();
     }
-    if(props.type==="fandom"){
-      getFandom()
+    if (props.type === "fandom") {
+      getFandom();
     }
-    if(props.type==="featured"){
-      getFeatured()
+    if (props.type === "featured") {
+      getFeatured();
     }
 
     window.scrollTo(0, 0);
@@ -65,8 +86,12 @@ const ProductsContainer = (props) => {
         {products &&
           products.map((item, index) => (
             <>
-              <Link to={`/product/${item.productcode}`} state={item} key={index}>
-                <Product name={item.name} image={item.image} id={item._id}/>
+              <Link
+                to={`/product/${item.productcode}`}
+                state={item}
+                key={index}
+              >
+                <Product name={item.name} image={item.image} id={item._id} />
               </Link>
 
               {index === 3 ? (
