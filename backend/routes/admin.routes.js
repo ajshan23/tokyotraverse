@@ -13,9 +13,9 @@ router.route("/addproduct").post(
   ]),
   createProduct
 );
-router.route("/getallproducts").get(getAllProducts)
+router.route("/getallproducts").post(getAllProducts)
 router.route("/removeproductbyid").post(removeProductByid)
-router.route("/getlatestproduct").get(getLatestProducts)
+router.route("/getlatestproduct").post(getLatestProducts)
 router.route("/category").post(getProductByCategroy)
 
 export default router

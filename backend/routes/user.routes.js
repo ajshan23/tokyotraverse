@@ -8,9 +8,9 @@ const router=Router();
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/logout").post(logoutUser);
-router.route("/getallproducts").get(getAllProducts)
-router.route("/getfandom").get(getFandom)
-router.route("/getfeatured").get(getfeatured)
+router.route("/getallproducts").post(getAllProducts)
+router.route("/getfandom").post(getFandom)
+router.route("/getfeatured").post(getfeatured)
 router.route("/search").post(searchProducts)
 router.route("/category").post(getProductByCategroy)
 router.route("/relatedproducts").post(getRelated)
