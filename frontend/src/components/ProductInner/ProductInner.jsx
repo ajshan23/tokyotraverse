@@ -120,7 +120,7 @@ const ProductInner = ({product}) => {
           </div>
           <div className="flex flex-col">
             <div className="priceandrating flex flex-row gap-3">
-              <div className="font-lexend text-2xl font-bold">${product.price1}</div>
+              <div className="font-lexend text-2xl font-bold">${product.price}</div>
               <div className="px-3 py-[2px] bg-[#F3D431] text-white rounded-full flex flex-row justify-center items-center">
                 <IoMdStar />
                 &nbsp;4.5

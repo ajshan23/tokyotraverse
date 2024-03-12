@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaSort } from "react-icons/fa";
 import Product from "../components/Product/Product.jsx";
-import CoverImage2 from "../components/CoverImage/CoverImage2.jsx";
 import bg from "../assets/avatarback.png";
 import pic from "../assets/grouppic.png";
 import { FaSearch } from "react-icons/fa";
@@ -14,6 +13,16 @@ const SearchResults = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  const sortByPrice=async()=>{
+    let newProducts=products;
+    await newProducts.sort((a,b)=>a.price - b.price)
+    setProducts(newProducts)
+  }
+  const sortByDate=async()=>{
+    let newProducts=products
+    await newProducts.reverse();
+    setProducts(newProducts)
+  }
   const searchIt = async () => {
     await fetch("/api/v1/users/search", {
       method: "POST",
@@ -98,14 +107,14 @@ const SearchResults = () => {
               <div className="absolute top-full mt-1 bg-white border-red-500 shadow-lg">
                 <ul>
                   <li
-                    className="w-24 border-2 border-red-600 hover:bg-red-600 hover:text-white"
-                    onClick={() => setIsOpen(false)}
+                    className="w-24 border-2 border-red-600 hover:bg-red-600 cursor-pointer hover:text-white"
+                    onClick={() =>{ setIsOpen(false);sortByPrice()}}
                   >
                     Price
                   </li>
                   <li
-                    className="w-24 border-2 border-red-600 hover:bg-red-600 hover:text-white"
-                    onClick={() => setIsOpen(false)}
+                    className="w-24 border-2 border-red-600 hover:bg-red-600 cursor-pointer hover:text-white"
+                    onClick={() => {setIsOpen(false);sortByDate()}}
                   >
                     Latest
                   </li>
